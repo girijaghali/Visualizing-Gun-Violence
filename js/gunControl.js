@@ -382,7 +382,7 @@ var geoJSONFiles = [
     mapID: 'map4',
     gl: ['LowMediumIncome', 'HighIncome'],
     gc: [['#d7191c', '#2b83ba'],['#e66101', '#5e3c99']],
-    lkl: ['Strongly oppose', 'In the middle', 'Strongly in favor'],
+    lkl: ['Strongly in favor', 'In the middle', 'Strongly oppose'],
     lt: 'Should People with Mental Illness be Allowed to Buy Guns in the US by Income',
     tt: 'Should a person with a mental illness be allowed to buy a gun in the US?',
     groupKey: 'LowMediumIncome'
