@@ -21,10 +21,10 @@ client = pymongo.MongoClient(conn)
 # client = pymongo.MongoClient('127.0.1.1', 49247)
 print('connected')
 db=client.gunViolenceSummary
-db.massShootings_1980.drop()
+db.gunviolence.drop()
 collection = db.gunviolence
 
-@app.route("/scrape")
+@app.route("/data")
 def scrape():
     filename = "data/data_1980_1.csv"
     data=pd.read_csv(filename)
@@ -35,10 +35,37 @@ def scrape():
         db.collection.insert_one(datum)
         print('inserted')
 
+    # filename = "data/data_1990_1.csv"
+    # data=pd.read_csv(filename)
+    # df = pd.DataFrame(data)
+    # records = df.to_dict(orient="records")
+    # for datum in records:
+    #     print(datum) 
+    #     db.collection.insert_one(datum)
+    #     print('inserted')
+    
+    # filename = "data/data_2000_1.csv"
+    # data=pd.read_csv(filename)
+    # df = pd.DataFrame(data)
+    # records = df.to_dict(orient="records")
+    # for datum in records:
+    #     print(datum) 
+    #     db.collection.insert_one(datum)
+    #     print('inserted')
+
+    # filename = "data/data_2010_1.csv"
+    # data=pd.read_csv(filename)
+    # df = pd.DataFrame(data)
+    # records = df.to_dict(orient="records")
+    # for datum in records:
+    #     print(datum) 
+    #     db.collection.insert_one(datum)
+    #     print('inserted')
+
     df_out = list(db.collection.find())
     print(df_out)
-    return redirect("http://localhost:5000/", code=302)
-
+    return render_template("data.html", df_out=df_out)
+    # return redirect("http://localhost:5000/", code=302)
 
 @app.route("/")
 def index():
