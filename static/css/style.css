@@ -1,0 +1,329 @@
+body {
+  padding: 115px;
+  margin: 0;
+  padding-top: 115px;
+  padding-bottom: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* .chart rect {
+    fill: steelblue;
+}
+
+    .chart rect:hover {
+        fill: turquoise;
+    } */
+
+/* .chart .rectM {
+    stroke: green;
+    stroke-width: 1;
+    fill: green;
+    fill-opacity: .2;
+} */
+
+    /* .chart .rectM:hover {
+        fill: green;
+        fill-opacity: .5;
+    } */
+
+.chart text {
+    font: 10px sans-serif;
+}
+
+/* .chart .title {
+    font: 15px sans-serif;
+} */
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+div.tooltip {
+position: absolute;
+text-align: left;
+width: 200px;
+height: 100px;
+padding: 2px;
+font: 12px sans-serif;
+background: #ffffff;
+border: 2px;
+border-radius: 8px;
+pointer-events: none;
+
+
+}
+
+section {
+  height: 100vh;
+}
+
+#background{
+  background-image: url("../data/landing_background.png");
+  background-repeat: no-repeat;
+}
+
+#down-arrow{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 80px;
+  opacity: .8;
+}
+
+#down-arrow:hover{
+  opacity: 1;
+}
+
+div#load_screen{
+  background: white;
+  opacity: 1;
+  position: fixed;
+  z-index: 10;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+div#load_screen > div#loading {
+  color: black;
+  width: 120px;
+  height: 24px;
+  margin: 300px auto;
+}
+
+.navbar {
+  height: 115px;
+  background-color: black !important;
+}
+
+.navbar-nav > .nav-item > .nav-link {
+  color: #A1CBE7;
+}
+
+.navbar-nav > .nav-item > .nav-link:hover {
+  color: white;
+}
+
+.navbar > .collapse > .navbar-brand {
+  color: #F06355;
+}
+
+#bordered {
+  border: 1px solid red;
+}
+.dygraph-legend {
+  text-align: right;
+}
+
+#map1, #map2, #map3, #map4, #map5 {
+  height: 600px;
+   margin-bottom: 10px;
+    margin-top: 10px;
+	  margin-right: 10px;
+	    margin-left: 10px;
+		width:100%
+}
+
+.col-lg-12 {
+  -ms-flex: 0 0 100%;
+  flex: 0 0 70%;
+  max-width: 100%;
+}
+.col-md-12 {
+  -ms-flex: 0 0 100%;
+  flex: 0 0 70%;
+  max-width: 100%;
+}
+.col-12 {
+  -ms-flex: 0 0 100%;
+  flex: 0 0 70%;
+  max-width: 100%;
+}
+/* Bootstrap */
+.container-fluid {
+  padding: 0 0 10 0;
+}
+.row {
+  margin-bottom: 30px;
+}
+
+.toolTipClass {
+  background: green;
+  font-size:18px;
+  border: 2px solid cyan
+}
+
+.header {
+  padding: 10px 16px;
+  background: #fff;
+  color: #f1f1f1;
+  z-index:1000;
+}
+/*
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+Gender */
+path.Female.low {
+  fill: #fdae61;
+  fill-opacity: 1;
+}
+path.Female.high {
+  fill: #2b83ba;
+  fill-opacity: 1;
+}
+path.Male.low {
+  fill: #c2a5cf;
+  fill-opacity: 1;
+}
+path.Male.high {
+  fill: #008837;
+  fill-opacity: 1;
+}
+
+/* Political */
+.Democrat.low {
+  fill: #e66101;
+  fill-opacity: 1;
+}
+.Democrat.high {
+  fill: #5e3c99;
+  fill-opacity: 1;
+}
+.Republican.low {
+  fill: #ca0020;
+  fill-opacity: 1;
+}
+.Republican.high {
+  fill: #0571b0;
+  fill-opacity: 1;
+}
+
+
+/* College */
+.BelowCollege.low {
+  fill: #a6611a;
+  fill-opacity: 1;
+}
+.BelowCollege.high {
+  fill: #018571;
+  fill-opacity: 1;
+}
+.College.low {
+  fill: #d01c8b;
+  fill-opacity: 1;
+}
+.College.high {
+  fill: #4dac26;
+  fill-opacity: 1;
+}
+
+/* Income */
+.LowMediumIncome.low {
+  fill: #d7191c;
+  fill-opacity: 1;
+}
+.LowMediumIncome.high {
+  fill: #2b83ba;
+  fill-opacity: 1;
+}
+.HighIncome.low {
+  fill: #e66101;
+  fill-opacity: 1;
+}
+.HighIncome.high {
+  fill: #5e3c99;
+  fill-opacity: 1;
+}
+
+/* Race */
+.NonWhite.low {
+  fill: #e66101;
+  fill-opacity: 1;
+}
+.NonWhite.high {
+  fill: #5e3c99;
+  fill-opacity: 1;
+}
+.White.low {
+  fill: #ca0020;
+  fill-opacity: 1;
+}
+.White.high {
+  fill: #008837;
+  fill-opacity: 1;
+}
+
+.neutral {
+  fill: #aaa;
+  fill-opacity: 1;
+}
+
+.legend {
+  line-height: 18px;
+  color: #555;
+  background-color: #fff;
+  padding: 5px;
+  border-radius: 3px;
+  background-color: #eee;
+  border: 1px solid #ccc;
+}
+.legend i {
+  width: 60px;
+  height: 18px;
+  float: left;
+  margin-right: 8px;
+  opacity: 0.7;
+}
+
+.legend span {
+  float: left;
+  margin-right: 10px;
+  display: inline-block;
+  width: 120px;
+}
+
+.legend div {
+  clear: left;
+  height: 20px;
+  font-size: 14px;
+}
+
+.legend-labels span {
+  text-align: center;
+}
+
+.legend .color-bar {
+  width: 110px;
+}
+
+.toggle {
+  padding: 10px;
+  background-color: white;
+  list-style-type: none;
+  background-color: #eee;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  font-size: 1.3em;
+  color: #444;
+}
+
+.toggle ul {
+  padding: 0;
+  list-style: none;
+  margin: 0;
+
+}
+
+.toggle ul input {
+  margin-right: 10px;
+}
+
+.leaflet-tooltip {
+  background-color: #eee;
+}

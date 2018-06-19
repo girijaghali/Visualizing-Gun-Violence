@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Catamaran" >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css">
+    <!-- <link rel="stylesheet" href="./css/style.css"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+    <!-- <script src="./js/leaflet.label.js"></script> -->
+    <script src="{{ url_for('static', filename='js/leaflet.js') }}"></script>
+
+    <title>Gun Violence</title>
+
+    <script>
+      window.addEventListener("load", function(){
+        let load_screen = $("#load_screen");
+        load_screen.remove();
+      });
+
+
+    </script>
+  </head>
+  <body>
+    <div id="load_screen">
+      <div id="loading">Loading...</div>
+    </div>
+
+    <nav class="navbar fixed-top navbar-dark bg-dark navbar-expand-md ">
+      <div class="collapse navbar-collapse flex-column" id="navbar">
+        <a class="navbar-brand" href="index.html">Visualizing Gun Violence</a>
+        <div>
+          <ul class="navbar-nav nav w-100 ">
+              <li class="nav-item ml-auto">
+                <a class="nav-link" data-toggle="tab" href="#intro">Introduction</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#massShootings">Mass Shootings</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#category">Gun Violence by Category (2018)</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#gunControl">Gun Control Sentiment (Survey 2017)</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#gunLawScore">Annual Gun Law Score (2017)</a>
+              </li>
+
+          </ul>
+
+
+          <ul class="navbar-nav nav w-100">
+              <li class="nav-item ml-auto">
+                <a class="nav-link" data-toggle="tab" href="#gunDeathState" >Gun Death Rate by State (2017)</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#gunDeathStateCapita">Gun Death Rate by State Per Capita(2017)</a>
+              </li>
+              <li class="nav-item mr-auto">
+                <a class="nav-link" data-toggle="tab" href="#about">About</a>
+              </li>
+          </ul>
+       </div>
+      </div>
+    </nav>
+
+    <!-- Begin slides -->
+
+      <div id="background">
+        <section id="landing">
+          <br>
+          <h3 class="text-center jumbotron pt-5"> In 2018,
+
+            <span class="title-span" style="color: #ff5733;">6,519</span>
+            people were killed and <span class="title-span" style="color: #ff5733;">29,678</span> injured in gun related violence
+            <div class="supporting_text" style="display: inline-block;"><span></span></div>
+          </h3>
+
+          <!-- <a href="#intro" class="nav-link"><img src="/data/downArrow.png" id="down-arrow" width="210px" height="280px"></a> -->
+          <a href="#intro" class="nav-link"><img src="{{ url_for('static', filename='data/downArrow.png') }}" id="down-arrow" width="210px" height="280px"></a>
+ 
+          
+        </section>
+      </div>
+        <hr>
+        <section id="intro">
+        	<blockquote class="blockquote text-center">
+          <p class="pg-bodyCopy intro" font-weight: "bold"> Embedded deep into the social fabrics of the nation of the United States is the right to bear arms. This constitutional right has been put to the test lately after mass shootings permeated news outlets. How often do they happen?
+          </p>
+          </blockquote>
+
+
+          <div id="lineGraph" class="mx-auto pt-5" style="width:800px; height:490px;"></div>
+        </section>
+        <br>
+        <hr>
+        <br>
+        <br>
+        <br>
+        <section id="massShootings">
+          <div class="page-header text-center"><h1 class="pg-h1">152 shootings</h1></div>
+
+
+          <blockquote class="blockquote text-center">
+          <p class="pg-bodyCopy intro">In the 50 years before the Texas tower shooting, there were just 25 public
+               mass shootings in which four or more people were killed, according to author and criminologist Grant Duwe.
+               Since then, the number has risen dramatically, and many of the deadliest shootings have occurred within the
+               past few years.
+          </p>
+          </blockquote>
+
+          <div id="area" class="text-center">
+            <div id="area1980"></div>
+            <div id="area1990"></div>
+            <div id="area2000"></div>
+            <div id="area2010"></div>
+          </div>
+        </section>
+        <br>
+        <hr>
+        <br>
+        <section id="category">
+          <br>
+          <select id="selectJsonmap" class="mx-auto"></select>
+          <blockquote class="blockquote text-center">
+          <p class="pg-bodyCopy intro" font-weight: "bold">Visualization of gun use in the United States. Each case has been documented by GunViolenceArchive from Jan 2018 until May 2018.
+          </p>
+          </blockquote>
+
+
+          <div id="mapid" class="mx-auto" style="width: 800px; height: 600px;"></div>
+        </section>
+        <br>
+        <br>
+        <br>
+        <br>
+        <hr>
+
+        <div id="gunControl">
+          <div class="mx-auto text-center" id="gender">
+
+
+              <a href="#gunControl">Gender  | </a>
+            	<a href="#education">Education  | </a>
+            	<a href="#party">Political Party  | </a>
+            	<a href="#income">Income  | </a>
+            	<a href="#race">Race</a>
+          </div>
+          <blockquote class="blockquote text-center">
+          <p class="pg-bodyCopy intro" font-weight: "bold">Women tend to favor stricter gun laws than men.
+          </p>
+          </blockquote>
+           
+
+          <div id="map1" class="col-md-12"></div>
+
+
+
+          <div class="mx-auto text-center" id="education">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+              <a href="#gunControl">Gender  | </a>
+              <a href="#education">Education  | </a>
+              <a href="#party">Political Party  | </a>
+              <a href="#income">Income  | </a>
+              <a href="#race">Race</a>
+          </div>
+          <blockquote class="blockquote text-center">
+          <p class="pg-bodyCopy intro" font-weight: "bold">The majority of College educated individuals do not see the need to own guns. Non-College educated are mostly neutral on gun ownership.
+          </p>
+          </blockquote>
+
+          <div id="map2" class="col-md-12"></div>
+
+
+
+          <div class="mx-auto text-center" id="party">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+              <a href="#gunControl">Gender  | </a>
+              <a href="#education">Education  | </a>
+              <a href="#party">Political Party  | </a>
+              <a href="#income">Income  | </a>
+              <a href="#race">Race</a>
+          </div>
+          <blockquote class="blockquote text-center">
+          <p class="pg-bodyCopy intro" font-weight: "bold"> Republicans do not wish to impose restrictions on what kind of guns should be legal in the US. Demograts are more in the middle.
+          </p>
+          </blockquote>
+           
+          <div id="map3" class="col-md-12"></div>
+
+
+
+          <div class="mx-auto text-center" id="income">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+              <a href="#gunControl">Gender  | </a>
+              <a href="#education">Education  | </a>
+              <a href="#party">Political Party  | </a>
+              <a href="#income">Income  | </a>
+              <a href="#race">Race</a>
+          </div>
+          <blockquote class="blockquote text-center">
+          <p class="pg-bodyCopy intro" font-weight: "bold">Both high and low income individuals wish to impose restrictions on the mentally ill having access to guns.
+          </p>
+          </blockquote>
+           
+          <div id="map4" class="col-md-12"></div>
+
+
+
+          <div class="mx-auto text-center" id="race">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+              <a href="#gunControl">Gender  | </a>
+              <a href="#education">Education  | </a>
+              <a href="#party">Political Party  | </a>
+              <a href="#income">Income  | </a>
+              <a href="#race">Race</a>
+          </div>
+          <blockquote class="blockquote text-center">
+          <p class="pg-bodyCopy intro" font-weight: "bold">Both White and non-White indivuals believe that guns are an issue. 
+          </p>
+          </blockquote>
+          
+          
+          <div id="map5" class="col-md-12"></div>
+
+        </div>
+        <br>
+        <hr>
+        <br>
+        <section id="gunLawScore">
+        <h1><span class="category" style="color: #ff5733;">  WEAK</span> GUN LAWS, <span class="category" style="color: #ff5733;">MORE</span> GUN DEATHS</h1>
+        <h3 class="category">  Explore the correlation between gun laws and gun deaths, state by state.</h3>
+        <br>
+            <div id="fa3fb52b-9f4b-4058-9fb5-d4216f0d752d" style="width: 80%; height: 80%;" class="plotly-graph-div mx-auto"></div>
+            <span class="sources">
+                <span>
+                  State Gun Law Score from <a href="http://gunlawscorecard.org/">Giffords Law Center</a>.
+                </span>
+        </span>
+        </section>
+        <hr>
+        <div id="gunDeathState">
+            <p class='text-center'><h1>SIX <span class="category" style="color: #ff5733;"> KEY POLICIES</span> TO SAVE LIVES FROM GUN VIOLENCE</h1></p>
+            <p>The grade ranking assigns positive point values to gun safety policies, such as private-sale background checks and extreme risk protection orders, and negative point values to dangerous laws, such as permitless concealed carry. From there, they convert points to letter grades, rank the states, and compare their findings to the latest CDC gun death rates for each state. Every year, the same correlation emerges: high gun law grades are associated with low gun death rates and low gun law grades with high gun death rates.</p>
+            <h3 class="category">  Explore the correlation between gun laws and gun deaths, state by state.</h3>
+        
+            <div id="cbe53f32-3ccf-438b-b49b-94dd573024a7" style="width: 80%; height: 80%;" class="plotly-graph-div mx-auto"></div>
+          <blockquote class="blockquote text-center">
+          <p class="pg-bodyCopy intro" font-weight: "bold"> 
+          </p>
+          </blockquote>
+            <div id="0645a3c9-815f-4fcc-a645-4e4e6b8d75ff" style="width: 80%; height: 80%;" class="plotly-graph-div mx-auto"></div>
+            <span class="sources">
+                <span>
+                  Gun Death Rate by State from <a href="http://gunlawscorecard.org/">Giffords Law Center</a>.
+                </span>
+        </span>
+        </div>
+        <br>
+        <hr>
+        <br>
+        <section id="gunDeathStateCapita">
+          <p class='text-center'><h1><span class="category" style="color: #ff5733;">  FEWER</span> PEOPLE DIE FROM GUN VIOLENCE IN STATES WITH <span class="category" style="color: #ff5733;">STRONG</span> GUN LAWS</h1></p>
+          <p class='text-center'><h3 class="category">Annual state gun death rates per 100,000 people.</h3></p>
+            <div id="38ec8da8-0103-4710-acfc-081633db82b8" style="width: 80%; height: 80%;" class="plotly-graph-div mx-auto"></div>
+            <span class="sources">
+                <span>
+                  Gun Death Rate by State from <a href="http://gunlawscorecard.org/">Giffords Law Center</a>.
+                </span>
+        </span>
+        </section>
+        <br>
+        <hr>
+        <br>
+        <section id="about">
+               <div class="text-center pt-5">
+                  <h4>About</h4>
+                  <br>
+                  <div>
+                    <div>
+                      <p style="font-size: 20px; line-height: 20px;">Team Members</p>
+                      <span style="display: block;"><a style="color:#F06355;" href="#">Manuela Machado</a></span>
+                      <span style="display: block;"><a style="color:#F06355;" href= "#">Manel Mahroug</a></span>
+                      <span style="display: block;"><a style="color:#F06355;" href="#">Girija Ghali</a></span>
+                      <span style="display: block;"><a style="color:#F06355;" href="#">Piya Mitra</a></span>
+                    </div>
+                    <br>
+                    <div>
+                      <p style="font-size: 20px">Goal</p>
+                      <span>
+                        We want to visualize gun violence in The United States, put the numbers of gun related violent incidents into perspective, and get a sense of where Americans stand on gun control laws and measures.
+                      </span>
+                    </div>
+                    <br>
+                    <div>
+                      <p style="font-size: 20px">Audience</p>
+                      <span>
+                        Our audience are members of the general public who have an interest in our subject and are github users, as that is our method for delivery.
+                      </span>
+                    </div>
+                  </div>
+                </div>
+        </section>
+
+      <!-- <script src="/js/scroll.js"></script> -->
+      <script src="{{ url_for('static', filename='js/scroll.js') }}"></script>
+      <!-- <script type="text/javascript" src="/js/gundata.js"></script> -->
+      <script src="{{ url_for('static', filename='js/gundata.js') }}"></script>
+      <!-- <script type="text/javascript" src="/js/bubble.js"></script> -->
+      <script src="{{ url_for('static', filename='js/bubble.js') }}"></script>
+      <!-- <script type="text/javascript" src="/js/category.js"></script> -->
+      <script src="{{ url_for('static', filename='js/category.js') }}"></script>
+      <!-- <script type="text/javascript" src="/js/gunControl.js"></script> -->
+      <script src="{{ url_for('static', filename='js/gunControl.js') }}"></script>
+      <!-- <script type="text/javascript" src="/js/plots.js"></script> -->
+      <script src="{{ url_for('static', filename='js/plots.js') }}"></script>
+      <!-- <script type="text/javascript" src="/js/plotlyjs-bundle.js"></script> -->
+      <script src="{{ url_for('static', filename='js/plotlyjs-bundle.js') }}"></script>
+      <!-- <script type="text/javascript" src="/js/plotly-geo-assets.js"></script> -->
+      <script src="{{ url_for('static', filename='js/plotly-geo-assets.js') }}"></script>
+
+      <script type="text/javascript">
+      //Home
+        g1 = new Dygraph(
+            document.getElementById("lineGraph"),
+            data_counts,
+            {
+              title: 'Number of Individuals Injured or Killed in Mass Shootings 1982-2018',
+              ylabel: 'Number of individuals',
+              legend: 'always',
+            }
+        );
+      </script>
+
+      <script type="text/javascript">
+      //Gun Law Score
+          function loadGLS(){
+              window.PLOTLYENV={'BASE_URL': 'https://plot.ly'};
+
+              let gd = document.getElementById('fa3fb52b-9f4b-4058-9fb5-d4216f0d752d')
+              let resizeDebounce = null;
+
+              function resizePlot() {
+                  let bb = gd.getBoundingClientRect();
+                  Plotly.relayout(gd, {
+                      width: bb.width,
+                      height: bb.height
+                  });
+              }
+              Plotly.plot(gd,  {
+                  data: gunLawScore.data,
+                  layout: gunLawScore.layout,
+                  frames: gunLawScore.frames,
+                  config: {"mapboxAccessToken": "pk.eyJ1IjoiY2hyaWRkeXAiLCJhIjoiY2lxMnVvdm5iMDA4dnhsbTQ5aHJzcGs0MyJ9.X9o_rzNLNesDxdra4neC_A", "linkText": "Export to plot.ly", "showLink": true}
+              });
+         };
+
+         //State
+
+         function loadS(){
+             window.PLOTLYENV={'BASE_URL': 'https://plot.ly'};
+
+             let gd = document.getElementById('0645a3c9-815f-4fcc-a645-4e4e6b8d75ff')
+             let resizeDebounce = null;
+
+             function resizePlot() {
+                 let bb = gd.getBoundingClientRect();
+                 Plotly.relayout(gd, {
+                     width: bb.width,
+                     height: bb.height
+                 });
+             }
+             Plotly.plot(gd,  {
+                 data: state.data,
+                 layout: state.layout,
+                 frames: state.frames,
+                 config: {"mapboxAccessToken": "pk.eyJ1IjoiY2hyaWRkeXAiLCJhIjoiY2lxMnVvdm5iMDA4dnhsbTQ5aHJzcGs0MyJ9.X9o_rzNLNesDxdra4neC_A", "linkText": "Export to plot.ly", "showLink": true}
+             });
+
+        }
+
+
+
+      //State Per capita
+          function loadSPC(){
+              window.PLOTLYENV={'BASE_URL': 'https://plot.ly'};
+
+              let gd = document.getElementById('38ec8da8-0103-4710-acfc-081633db82b8')
+              let resizeDebounce = null;
+
+              function resizePlot() {
+                  let bb = gd.getBoundingClientRect();
+                  Plotly.relayout(gd, {
+                      width: bb.width,
+                      height: bb.height
+                  });
+              }
+              Plotly.plot(gd,  {
+                  data: statePerCapita.data,
+                  layout: statePerCapita.layout,
+                  frames: statePerCapita.frames,
+                  config: {"mapboxAccessToken": "pk.eyJ1IjoiY2hyaWRkeXAiLCJhIjoiY2lxMnVvdm5iMDA4dnhsbTQ5aHJzcGs0MyJ9.X9o_rzNLNesDxdra4neC_A", "linkText": "Export to plot.ly", "showLink": true}
+              });
+         }
+
+         function loadTable(){
+             window.PLOTLYENV={'BASE_URL': 'https://plot.ly'};
+
+             var gd = document.getElementById('cbe53f32-3ccf-438b-b49b-94dd573024a7')
+             var resizeDebounce = null;
+
+             function resizePlot() {
+                 var bb = gd.getBoundingClientRect();
+                 Plotly.relayout(gd, {
+                     width: bb.width,
+                     height: bb.height
+                 });
+             }
+
+
+             window.addEventListener('resize', function() {
+                 if (resizeDebounce) {
+                     window.clearTimeout(resizeDebounce);
+                 }
+                 resizeDebounce = window.setTimeout(resizePlot, 100);
+             });
+
+             Plotly.plot(gd,  {
+                 data: table.data,
+                 layout: table.layout,
+                 frames: table.frames,
+                 config: {"mapboxAccessToken": "pk.eyJ1IjoiY2hyaWRkeXAiLCJhIjoiY2lxMnVvdm5iMDA4dnhsbTQ5aHJzcGs0MyJ9.X9o_rzNLNesDxdra4neC_A", "linkText": "Export to plot.ly", "showLink": true}
+             });
+        }
+
+         loadGLS();
+         loadS();
+         loadSPC();
+         loadTable();
+
+         $(window).ready(function(){
+           $(this).scrollTop(0);
+         });
+      </script>
+
+
+  </body>
+</html>
